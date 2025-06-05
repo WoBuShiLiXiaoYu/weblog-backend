@@ -1,6 +1,8 @@
 package com.hgh.weblog.web.controller;
 
 import com.hgh.weblog.common.aspect.ApiOperationLog;
+import com.hgh.weblog.common.enums.ResponseCodeEnum;
+import com.hgh.weblog.common.exception.BizException;
 import com.hgh.weblog.common.utils.Response;
 import com.hgh.weblog.web.pojo.User;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @RestController
@@ -20,9 +23,10 @@ public class TestController {
 
     @ApiOperationLog(description = "测试接口")
     @PostMapping("/test")
-    public Response test(@RequestBody @Validated User user, BindingResult bindingResult) {
+    public Response test(@RequestBody @Validated User user) {
+
         // 是否存在校验错误
-        if (bindingResult.hasErrors()) {
+        /*if (bindingResult.hasErrors()) {
             // 获取校验不通过字段的提示信息
             String errorMsg = bindingResult.getFieldErrors()
                     .stream()
@@ -33,6 +37,13 @@ public class TestController {
             return Response.fail(errorMsg);
         }
         // return ResponseEntity.ok("参数没有任何问题");
+        return Response.success();*/
+
+        //throw new BizException(ResponseCodeEnum.PRODUCT_NOT_FOUND);
+
+        /*int i = 1 / 0;
+        return Response.success();*/
+
         return Response.success();
     }
 }

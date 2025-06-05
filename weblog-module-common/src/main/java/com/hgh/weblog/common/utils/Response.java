@@ -1,5 +1,8 @@
 package com.hgh.weblog.common.utils;
 
+import com.hgh.weblog.common.enums.ResponseCodeEnum;
+import com.hgh.weblog.common.exception.BaseExceptionInterface;
+import com.hgh.weblog.common.exception.BizException;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -50,6 +53,28 @@ public class Response<T> implements Serializable {
         response.setSuccess(false);
         response.setErrorCode(errorCode);
         response.setMessage(errorMessage);
+        return response;
+    }
+
+    /**
+     * 自定义异常
+     * @param bizException
+     * @return
+     * @param <T>
+     */
+    public static <T> Response<T> fail(BizException bizException) {
+        Response<T> response = new Response<>();
+        response.setSuccess(false);
+        response.setErrorCode(bizException.getErrorCode());
+        response.setMessage(bizException.getErrorMessage());
+        return response;
+    }
+
+    public static <T> Response<T> fail(BaseExceptionInterface baseExceptionInterface) {
+        Response<T> response = new Response<>();
+        response.setSuccess(false);
+        response.setErrorCode(baseExceptionInterface.getErrorCode());
+        response.setMessage(baseExceptionInterface.getErrorMessage());
         return response;
     }
 }
